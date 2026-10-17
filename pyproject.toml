@@ -1,7 +1,7 @@
 [project]
 name = "mandi-ingest"
 version = "0.1.0"
-description = "Add your description here"
+description = "Clean and validate Agmarknet mandi price data (data.gov.in) for analysis."
 readme = "README.md"
 authors = [
     { name = "Ashutosh M", email = "ashutoshmh202@gmail.com" }
@@ -22,3 +22,13 @@ dev = [
     "pytest>=9.1.1",
     "ruff>=0.17.1",
 ]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
