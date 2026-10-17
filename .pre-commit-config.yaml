@@ -1,0 +1,7 @@
+repos:                                                  # list of places pre-commit downloads tools from
+  - repo: https://github.com/astral-sh/ruff-pre-commit  # Astral's official ruff hook repository
+    rev: v0.17.1                                        # exact ruff version, same as uv.lock
+    hooks:                                              # which tools from that repo to run
+      - id: ruff-check                                  # the LINTER: finds wrong or risky code
+        args: [--fix]                                   # let the linter auto-fix safe problems
+      - id: ruff-format                                 # the FORMATTER: must come AFTER ruff-check
