@@ -1,0 +1,19 @@
+name: CI                                    # name shown in the Actions tab and on the badge
+
+on:                                         # WHEN the workflow runs
+  push:                                     # every time I push...
+    branches: [main]                        # ...to the main branch
+  pull_request:                             # and on every pull request
+
+jobs:                                       # a workflow is made of jobs
+  test:                                     # one job, which I named "test"
+    runs-on: ubuntu-latest                  # GitHub lends me a fresh Linux machine for each run
+    steps:                                  # commands run in order; if one fails, the run is red
+      - uses: actions/checkout@v7           # copy my repo onto that machine
+      - uses: astral-sh/setup-uv@v10.3.0    # install uv (full version tag; @v10 does not exist)
+        with:
+          enable-cache: true                # save downloaded packages so later runs are faster
+      - run: uv sync --locked               # install exactly what uv.lock says; fails if the lock is out of date
+      - run: uv run ruff check .            # linter must pass
+      - run: uv run ruff format --check .   # formatter check: fails if any file isn't formatted (changes nothing)
+      - run: uv run pytest                  # all 7 tests must pass
